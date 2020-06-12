@@ -9,6 +9,7 @@ const minutesDisplay = document.querySelector('#minutes');
 const secondsDisplay = document.querySelector('#seconds');
 const questionTitle = document.querySelector('#card-title');
 const answerContainer = document.querySelector("#answers-container")
+const explanation = document.querySelector("#explanation")
 
 let totalSeconds = Number(minutesDisplay.textContent) * 60;
 console.log(totalSeconds);
@@ -16,6 +17,7 @@ console.log(totalSeconds);
 let secondsElapsed = 0;
 let interval = 0;
 let currentQuestion = 0;
+// let currentAnswer = 0;
 
 let questions = [
     {   questionHeading: "Arrays in JavaScript are used to store .....?", 
@@ -31,6 +33,7 @@ let questions = [
 function renderQuestion(questionIndex) {
     let question = questions[questionIndex]
     questionTitle.textContent = question.questionHeading;
+
 
     // grab all selectios from question
 
@@ -49,7 +52,6 @@ function renderQuestion(questionIndex) {
     }
 }
 
-
 startButton.addEventListener("click", startGame)
 
 function startGame() {
@@ -62,13 +64,16 @@ function startGame() {
       }, 1000);
 
     startButton.setAttribute("class", "d-none");
+    explanation.innerHTML = "";
     renderQuestion(0);
-    // questionTitle.textContent = questions[0].questionHeading;
+  
+    
 }
 
 document.getElementById("test").addEventListener("click", function(event){
     currentQuestion++;
     renderQuestion(currentQuestion);
+    // renderAnswer(currentAnswer);
 })
 
 function renderTimerDisplay() {
