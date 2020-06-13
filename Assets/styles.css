@@ -51,3 +51,7 @@ html, body {
     display: inline-block;
     width: auto;
 }
+
+#result {
+    font-size: xx-large;
+}
