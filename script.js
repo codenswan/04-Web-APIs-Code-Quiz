@@ -1,26 +1,28 @@
-// This is a SPA - single page application
-// when I click the start button 
-// the counter should start at 5 and begin to count down by 1 second
-// the first question should replace the current h1 heading and I need the answer buttons to appear in the div container.
-
 const startButton = document.querySelector("#startQuiz");
-const counterEl = document.querySelector("#counter");
-const minutesDisplay = document.querySelector('#minutes');
 const secondsDisplay = document.querySelector('#seconds');
 const questionTitle = document.querySelector('#card-title');
 const answerContainer = document.querySelector("#answers-container")
 const explanation = document.querySelector("#explanation")
 const resultDisplay = document.querySelector("#result")
 const answerBtns = document.querySelector(".answerBtns")
+const nextQuestion = document.querySelector("#nextQuestion")
+const highScoreBtn = document.querySelector("#highScoresLink")
+const questionContainer = document.querySelector("#question-container")
+const gameResultContainer = document.querySelector("#game-result-container")
+const resultsContainer = document.querySelector("#results-container")
+const finishedBtn = document.querySelector("#finishedBtn")
+const currentGameScore = document.querySelector("#game-score")
+const playerInitial = document.querySelector("#player-name")
+const addScoreBtn = document.querySelector("#add-score")
+const scoreList = document.querySelector("#score-list")
+const startAgainBtn = document.querySelector("#start-again")
 
-let totalSeconds = Number(minutesDisplay.textContent) * 60;
-
-let secondsElapsed = 0;
-let interval = 0;
-let currentQuestion = 0;
-
-
-let questions = [{
+var totalSeconds = Number(secondsDisplay.textContent);
+var secondsElapsed = 0;
+var interval = 0;
+var currentQuestion = 0;
+var score = 0;
+var questions = [{
         questionHeading: "Arrays in JavaScript are used to store .....?",
         answers: ["Java", "Coffee", "numbers and strings", "booleans"],
         correctAnswer: "numbers and strings"
@@ -47,100 +49,107 @@ let questions = [{
     },
 ]
 
-// function for starting game button
+var highScores = [{
+    score: currentGameScore,
+    name: "test",
+}]
+var highScoreId = 0;
+
+window.addEventListener('load', (event) => {
+    gameResultContainer.setAttribute("hidden", true);
+    resultsContainer.setAttribute("hidden", true);
+});
+
 startButton.addEventListener("click", startGame)
-
 function startGame() {
-    // counter reduces by seconds
     let interval = setInterval(function () {
-
         totalSeconds = totalSeconds - 1;
         secondsElapsed = secondsElapsed + 1;
         renderTimerDisplay();
+        if (totalSeconds === 0) {
+            questionContainer.setAttribute("hidden", true);
+            gameResultContainer.removeAttribute("hidden");
+            clearInterval(interval);
+        } 
     }, 1000);
 
     startButton.setAttribute("class", "d-none");
     explanation.innerHTML = "";
     renderQuestion(0);
+    nextQuestion.setAttribute("hidden", true);
 }
 
 function renderTimerDisplay() {
     let seconds = Number(totalSeconds) % 60;
-    let minutes = parseInt(Number(totalSeconds) / 60);
-    minutesDisplay.textContent = minutes;
     secondsDisplay.textContent = seconds;
 }
 
-function renderQuestion(questionIndex) { 
-
+function renderQuestion(questionIndex) {
     let question = questions[questionIndex]
     questionTitle.textContent = question.questionHeading;
-    
-    // grab all selections from question
     let answerSelections = question.answers;
-    
+
     for (let index = 0; index < answerSelections.length; index++) {
         const answerChoice = answerSelections[index];
-        // create a btn for each selection
         const btn = document.createElement("button")
-        // class name
         btn.setAttribute("class", "answerBtns")
         btn.textContent = answerChoice
-        // append these btns to the 'answerBtns' element
         answerContainer.appendChild(btn);
-        
-        //create click event that calls right / wrong answer
-        btn.addEventListener("click", function() {
-            currentQuestion++;
-            renderQuestion(currentQuestion);
+
+        btn.addEventListener("click", function () {
+            nextQuestion.removeAttribute("hidden");
             resultDisplay.textContent = question.correctAnswer == answerChoice ? 'Correct!' : 'Wrong';
+            score += question.correctAnswer == answerChoice ? 1 : 0;
+            currentGameScore.textContent = score;
+            clearAnswer();
+            if (answerChoice === 0) {
+                secondsDisplay -= 10;
+                console.log(secondsDisplay)
+            }
         })
-        
-    }   
-    
+
+        if (answerSelections[index] === [4]) {
+            finishedBtn.removeAttribute("hidden")
+            finishedBtn.addEventListener("click", function () {
+                console.log("finished bitches")
+                resultDisplay.textContent = "";
+                nextQuestion.setAttribute("hidden", true);
+            })
+        }
+    }
 }
 
-function rightAnswer() {
+nextQuestion.addEventListener("click", function () {
+    currentQuestion++;
+    renderQuestion(currentQuestion);
+    resultDisplay.textContent = "";
+    nextQuestion.setAttribute("hidden", true);
+})
 
+function clearAnswer() {
+    while (answerContainer.firstChild) {
+        answerContainer.removeChild(answerContainer.firstChild)
+    }
 }
+highScoreBtn.addEventListener("click", function () {
+    questionContainer.setAttribute("hidden", true);
+    gameResultContainer.setAttribute("hidden", true);
+    resultsContainer.removeAttribute("hidden");
+})
 
-function wrongAnswer() {
+startAgainBtn.addEventListener("click", function(){
+    questionContainer.setAttribute("hidden", true);
+    gameResultContainer.setAttribute("hidden", true);
+    resultsContainer.removeAttribute("hidden");
+})
 
-}
-
-        //create click event that calls right / wrong answer
-        // btn.addEventListener("click", function (event) {
-        //     console.log(question.correctAnswer == answerChoice ? 'right' : 'wrong');
-        //     // clearAnswer();
-        // }
-        // btn.addEventListener("click", function(event){
-        //     console.log(question.correctAnswer == answerChoice ? 'right' : 'wrong' );
-        //     currentQuestion++;
-        //     renderQuestion(currentQuestion);
-        //     // rightAnswer()
-        // })
-
-        // function rightAnswer()
-        //     // add div to the answer-container
-        //     resultDisplay = question.correctAnswer == answerChoice ? 'Correct!' : 'Wrong!'
-        // wrong function
-        // clear answer-container function call from both right and wrong function
-
-        // function clearAnswer() {
-        //     while (answerContainer.firstChild) {
-        //         answerContainer.removeChild(answerContainer.firstChild)
-        //       }
-        // }
-
-// misc function not essential to the assignment
-//these lines of code play sound when mouse hovers over "sound" in the explanation screen screen
-function PlaySound(soundobj) {
-    var thissound = document.getElementById(soundobj);
-        thissound.play();
-}
-
-function StopSound(soundobj) {
-    var thissound = document.getElementById(soundobj);
-        thissound.pause();
-        thissound.currentTime = 0;
-}
+addScoreBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    let scorename = currentGameScore.value 
+    console.log(scorename);
+    // let line = document.createElement("li");
+    // li.id = scorename.length;
+    // li.textContent = initial;
+    // highScores.push({scorename.scorename})
+    // scoreList.append(li);
+})
