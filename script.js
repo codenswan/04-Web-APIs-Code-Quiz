@@ -51,13 +51,13 @@ var questions = [{
 
 var highScores = [{
     score: currentGameScore,
-    name: "test",
+    name: playerInitial,
 }]
 var highScoreId = 0;
 
 window.addEventListener('load', (event) => {
-    gameResultContainer.setAttribute("hidden", true);
-    resultsContainer.setAttribute("hidden", true);
+    // gameResultContainer.setAttribute("hidden", true);
+    // resultsContainer.setAttribute("hidden", true);
 });
 
 startButton.addEventListener("click", startGame)
@@ -108,13 +108,17 @@ function renderQuestion(questionIndex) {
             }
         })
 
-        if (answerSelections[index] === [4]) {
-            finishedBtn.removeAttribute("hidden")
-            finishedBtn.addEventListener("click", function () {
-                console.log("finished bitches")
-                resultDisplay.textContent = "";
+        if (index === 4) {
+            nextQuestion.addEventListener("click", function () {
+            
                 nextQuestion.setAttribute("hidden", true);
             })
+            // finishedBtn.removeAttribute("hidden")
+            // finishedBtn.addEventListener("click", function () {
+                
+            //     resultDisplay.textContent = "";
+            //     nextQuestion.setAttribute("hidden", true);
+            // })
         }
     }
 }
@@ -131,7 +135,8 @@ function clearAnswer() {
         answerContainer.removeChild(answerContainer.firstChild)
     }
 }
-highScoreBtn.addEventListener("click", function () {
+
+highScoreBtn.addEventListener("click", function() {
     questionContainer.setAttribute("hidden", true);
     gameResultContainer.setAttribute("hidden", true);
     resultsContainer.removeAttribute("hidden");
@@ -145,7 +150,8 @@ startAgainBtn.addEventListener("click", function(){
 
 addScoreBtn.addEventListener("click", function (event) {
     event.preventDefault();
-    let scorename = currentGameScore.value 
+    let score = currentGameScore.textContent
+    let name = playerInitial.value 
     console.log(scorename);
     // let line = document.createElement("li");
     // li.id = scorename.length;
