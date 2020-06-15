@@ -15,6 +15,7 @@ const currentGameScore = document.querySelector("#game-score")
 const playerInitial = document.querySelector("#player-name")
 const addScoreBtn = document.querySelector("#add-score")
 const scoreList = document.querySelector("#score-list")
+const previousScore = document.querySelector("#previous-score-list")
 const startAgainBtn = document.querySelector("#start-again")
 
 var totalSeconds = Number(secondsDisplay.textContent);
@@ -53,7 +54,12 @@ var highScores = [{
     score: currentGameScore,
     name: playerInitial,
 }]
-var highScoreId = 0;
+
+var previousScore = [{
+    score: currentGameScore,
+    name: playerInitial,
+}]
+
 
 window.addEventListener('load', (event) => {
     // gameResultContainer.setAttribute("hidden", true);
@@ -102,23 +108,17 @@ function renderQuestion(questionIndex) {
             score += question.correctAnswer == answerChoice ? 1 : 0;
             currentGameScore.textContent = score;
             clearAnswer();
-            if (answerChoice === 0) {
-                secondsDisplay -= 10;
-                console.log(secondsDisplay)
+            if (resultDisplay.textContent === "Wrong") {
+                seconds = seconds - 10;
+                console.log("wrong")
             }
         })
 
-        if (index === 4) {
-            nextQuestion.addEventListener("click", function () {
+        if (currentQuestion === 4) {
             
+                finishedBtn.setAttribute("hidden", false);
                 nextQuestion.setAttribute("hidden", true);
-            })
-            // finishedBtn.removeAttribute("hidden")
-            // finishedBtn.addEventListener("click", function () {
-                
-            //     resultDisplay.textContent = "";
-            //     nextQuestion.setAttribute("hidden", true);
-            // })
+        
         }
     }
 }
@@ -152,10 +152,22 @@ addScoreBtn.addEventListener("click", function (event) {
     event.preventDefault();
     let score = currentGameScore.textContent
     let name = playerInitial.value 
-    console.log(scorename);
-    // let line = document.createElement("li");
-    // li.id = scorename.length;
-    // li.textContent = initial;
-    // highScores.push({scorename.scorename})
-    // scoreList.append(li);
+    let line = document.createElement("li");
+    line.textContent = name + ": " + score;
+    highScores.push({score, name})
+    scoreList.append(line);
+    previousScores(function){
+        
+    }
+
 })
+
+function previousScores() {
+    let score = currentGameScore.textContent
+    let name = playerInitial.value 
+    let line = document.createElement("li");
+    line.textContent = name + ": " + score;
+    previousScore.push({score, name})
+    previousScore.append(line);
+    
+}

@@ -52,7 +52,6 @@
         <h1 class="card-title" id="results-title">Enter your initials</h1>
         <form>
             <ul id="score-list">
-                <li id="0">test</li>
             </ul>
             <span id="game-score"></span>
             <div>
@@ -65,7 +64,9 @@
 
     <div class="card mx-auto SPA-container" id="results-container">
         <h1 class="card-title" id="previous-results-title">Previous Scores</h1>
-        <div id="previous-score"></div>
+        <ul id="previous-score-list">
+        </ul>
+        <button class="btn btn-primary pull-right" id="start-again" onclick="window.location.reload();">Start Again</button>
     </div>
 
 </body>
