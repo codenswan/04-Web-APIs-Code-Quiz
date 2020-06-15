@@ -15,7 +15,7 @@ const currentGameScore = document.querySelector("#game-score")
 const playerInitial = document.querySelector("#player-name")
 const addScoreBtn = document.querySelector("#add-score")
 const scoreList = document.querySelector("#score-list")
-const previousScore = document.querySelector("#previous-score-list")
+const scoreHistory = document.querySelector("#previous-score-list")
 const startAgainBtn = document.querySelector("#start-again")
 
 var totalSeconds = Number(secondsDisplay.textContent);
@@ -55,10 +55,7 @@ var highScores = [{
     name: playerInitial,
 }]
 
-var previousScore = [{
-    score: currentGameScore,
-    name: playerInitial,
-}]
+
 
 
 window.addEventListener('load', (event) => {
@@ -154,20 +151,8 @@ addScoreBtn.addEventListener("click", function (event) {
     let name = playerInitial.value 
     let line = document.createElement("li");
     line.textContent = name + ": " + score;
-    highScores.push({score, name})
     scoreList.append(line);
-    previousScores(function){
-        
-    }
-
+    highScores.push({score, name})
+    scoreHistory.append(line);
+    console.log("this is hard")
 })
-
-function previousScores() {
-    let score = currentGameScore.textContent
-    let name = playerInitial.value 
-    let line = document.createElement("li");
-    line.textContent = name + ": " + score;
-    previousScore.push({score, name})
-    previousScore.append(line);
-    
-}
