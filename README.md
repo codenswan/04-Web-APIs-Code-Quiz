@@ -25,12 +25,12 @@ Main page to start quiz:
 ![](Assets/Screen%20Shot%202020-06-16%20at%209.49.20%20pm.png)
 
 Question and answer container:
-![]Assets/Screen%20Shot%202020-06-16%20at%209.49.30%20pm.png
+![](Assets/Screen%20Shot%202020-06-16%20at%209.49.30%20pm.png)
 
 Results form:
 
 
 Highscores localStorage card:
-![]Assets/Screen%20Shot%202020-06-16%20at%209.49.38%20pm.png
+![](Assets/Screen%20Shot%202020-06-16%20at%209.49.38%20pm.png)
 
 
