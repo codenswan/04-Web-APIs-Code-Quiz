@@ -19,6 +19,18 @@ WHEN the game is over
 THEN I can save my initials and score
 
 Functionality
-I designed this as a SPA and used the "hidden" attribute to make the different bootstrap cards when needed. The following screenshots demonstrate this
+I designed this as a SPA and used the "hidden" attribute to make the different bootstrap cards when needed. The following screenshots demonstrate this.
 
+Main page to start quiz:
 ![](Assets/Screen%20Shot%202020-06-16%20at%209.49.20%20pm.png)
+
+Question and answer container:
+![]Assets/Screen%20Shot%202020-06-16%20at%209.49.30%20pm.png
+
+Results form:
+
+
+Highscores localStorage card:
+![]Assets/Screen%20Shot%202020-06-16%20at%209.49.38%20pm.png
+
+
