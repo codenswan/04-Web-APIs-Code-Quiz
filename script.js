@@ -51,6 +51,7 @@ var questions = [{
 ]
 
 startButton.addEventListener("click", startGame)
+
 function startGame() {
     let interval = setInterval(function () {
         totalSeconds = totalSeconds - 1;
@@ -61,7 +62,7 @@ function startGame() {
             questionContainer.setAttribute("hidden", true);
             gameResultContainer.removeAttribute("hidden");
             clearInterval(interval);
-        } 
+        }
     }, 1000);
 
     startButton.setAttribute("class", "d-none");
@@ -92,16 +93,16 @@ function renderQuestion(questionIndex) {
             resultDisplay.textContent = question.correctAnswer == answerChoice ? 'Correct!' : 'Wrong';
             score += question.correctAnswer == answerChoice ? 1 : 0;
             currentGameScore.textContent = score;
-                if (question.correctAnswer == answerChoice ? 'Correct!' : 'Wrong') {
-                    totalSeconds = totalSeconds - 10;
-                    console.log("wrong")
-                }
-                if (question === questions[4]) {
-                    
-                    finishedBtn.removeAttribute("hidden");
-                    nextQuestion.setAttribute("hidden", true);
-                    
-                }
+            if (question.correctAnswer == answerChoice ? 'Correct!' : 'Wrong') {
+                totalSeconds = totalSeconds - 10;
+                console.log("wrong")
+            }
+            if (question === questions[4]) {
+
+                finishedBtn.removeAttribute("hidden");
+                nextQuestion.setAttribute("hidden", true);
+
+            }
             clearAnswer();
         })
 
@@ -115,7 +116,7 @@ nextQuestion.addEventListener("click", function () {
     nextQuestion.setAttribute("hidden", true);
 })
 
-finishedBtn.addEventListener("click", function(){
+finishedBtn.addEventListener("click", function () {
     gameResultContainer.removeAttribute("hidden");
     questionContainer.setAttribute("hidden", true);
 })
@@ -126,45 +127,48 @@ function clearAnswer() {
     }
 }
 
-highScoreBtn.addEventListener("click", function() {
+highScoreBtn.addEventListener("click", function () {
     questionContainer.setAttribute("hidden", true);
     gameResultContainer.setAttribute("hidden", true);
     resultsContainer.removeAttribute("hidden");
+    // addScoreHistory();
 })
 
-startAgainBtn.addEventListener("click", function(){
+startAgainBtn.addEventListener("click", function () {
     questionContainer.setAttribute("hidden", true);
     gameResultContainer.setAttribute("hidden", true);
 })
 
-var highScores = [{
-    score: currentGameScore,
-    name: playerInitial,
-}]
+var highScores = JSON.parse(localStorage.getItem("highScores"))
+if (!highScores) {
+    highScores = []
+}
 
 addScoreBtn.addEventListener("click", function (event) {
     event.preventDefault();
-    
 
     let score = currentGameScore.textContent
-    let name = playerInitial.value 
-    highScores.push({score, name})
+    let name = playerInitial.value
+    highScores.push({
+        score,
+        name
+    })
     let newline = document.createElement("li");
     newline.textContent = name + ": " + score;
     scoreList.append(newline);
+    localStorage.setItem("highScores", JSON.stringify(highScores));
     addScoreHistory();
 })
 
-localStorage.setItem("highScores", JSON.stringify(highScores));
-
 function addScoreHistory() {
-    console.log("this is hard")
-    
-
-    let addNewScore = JSON.parse(localStorage.getItem("highScores"));
-    console.log(name + ": " + addNewScore.score)
-
-    newline.document.createElement("li");
-    newline.textContent = addNewScore.name + ": " + score;
-    scoreHistory.append(newline);
+    for (let index = 0; index < highScores.length; index++) {
+        const highScore = highScores[index];
+        let newline = document.createElement("li");
+        newline.textContent = highScore.name + ": " + highScore.score;
+        scoreHistory.append(newline);
+    }
 }
+
+document.getElementById("clear-scores").addEventListener("click", function() {
+    localStorage.clear();
+})

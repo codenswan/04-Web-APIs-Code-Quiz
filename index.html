@@ -48,7 +48,7 @@
 
 
 
-    <div class="card mx-auto SPA-container" id="game-result-container">
+    <div hidden class="card mx-auto SPA-container" id="game-result-container">
         <h1 class="card-title" id="results-title">Enter your initials</h1>
         <form>
             <ul id="score-list">
@@ -62,11 +62,14 @@
         </form>
     </div>
 
-    <div class="card mx-auto SPA-container" id="results-container">
+    <div hidden class="card mx-auto SPA-container" id="results-container">
         <h1 class="card-title" id="previous-results-title">Previous Scores</h1>
         <ul id="previous-score-list">
         </ul>
-        <button class="btn btn-primary pull-right" id="main-page" onclick="window.location.reload();">Main Page</button>
+        <div class="btn-group" role="group" aria-label="Button group">
+            <button class="btn" id="main-page" onclick="window.location.reload();">Main Page</button>
+            <button class="btn" id="clear-scores">Clear Scores</button>
+        </div>
     </div>
 
 </body>
