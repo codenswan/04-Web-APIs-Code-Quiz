@@ -36,5 +36,5 @@ Highscores localStorage card:
 Problems and issues
 I struggled to get all the different cards interacting with each other right way. There are a lot of setAttribute and removeAttribute funcitons in the code. 
 I also would have liked to improve the design with CSS 
-I would have preferred the localStorage items disapper from the card when the clear storage function is activated without needing to refresh the page. I played around with removing the &#60li&#60 elements but couldn't get it to work.
+I would have preferred the localStorage items disapper from the card when the clear storage function is activated without needing to refresh the page. I played around with removing the line elements but couldn't get it to work.
 
