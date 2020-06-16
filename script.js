@@ -50,14 +50,6 @@ var questions = [{
     },
 ]
 
-var highScores = [{
-    score: currentGameScore,
-    name: playerInitial,
-}]
-
-
-
-
 window.addEventListener('load', (event) => {
     // gameResultContainer.setAttribute("hidden", true);
     // resultsContainer.setAttribute("hidden", true);
@@ -104,11 +96,11 @@ function renderQuestion(questionIndex) {
             resultDisplay.textContent = question.correctAnswer == answerChoice ? 'Correct!' : 'Wrong';
             score += question.correctAnswer == answerChoice ? 1 : 0;
             currentGameScore.textContent = score;
+                if (question.correctAnswer == answerChoice ? 'Correct!' : 'Wrong') {
+                    totalSeconds = totalSeconds - 10;
+                    console.log("wrong")
+                }
             clearAnswer();
-            if (resultDisplay.textContent === "Wrong") {
-                seconds = seconds - 10;
-                console.log("wrong")
-            }
         })
 
         if (currentQuestion === 4) {
@@ -145,14 +137,31 @@ startAgainBtn.addEventListener("click", function(){
     resultsContainer.removeAttribute("hidden");
 })
 
+var highScores = [{
+    score: currentGameScore,
+    name: playerInitial,
+}]
+
 addScoreBtn.addEventListener("click", function (event) {
     event.preventDefault();
+    
+
     let score = currentGameScore.textContent
     let name = playerInitial.value 
-    let line = document.createElement("li");
-    line.textContent = name + ": " + score;
-    scoreList.append(line);
     highScores.push({score, name})
-    scoreHistory.append(line);
-    console.log("this is hard")
+    let newline = document.createElement("li");
+    newline.textContent = name + ": " + score;
+    scoreList.append(newline);
+    addScoreHistory();
 })
+
+function addScoreHistory() {
+    console.log("this is hard")
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+
+    let newScoreStorage = JSON.parse(localStorage.getItem("highScores"));
+    console.log(name + ": " + score)
+    let newline = document.createElement("li");
+    newline.textContent = newScoreStorage.name + ": " + newScoreStorage.score;
+    scoreHistory.append(newline);
+}
