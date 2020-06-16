@@ -21,4 +21,4 @@ THEN I can save my initials and score
 Functionality
 I designed this as a SPA and used the "hidden" attribute to make the different bootstrap cards when needed. The following screenshots demonstrate this
 
-![] (Assets/Screen%20Shot%202020-06-16%20at%209.49.20%20pm.png)
+![] (.Screen%20Shot%202020-06-16%20at%209.49.20%20pm.png)
