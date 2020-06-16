@@ -28,9 +28,13 @@ Question and answer container:
 ![](Assets/Screen%20Shot%202020-06-16%20at%209.49.30%20pm.png)
 
 Results form:
-
+![](Assets/Screen%20Shot%202020-06-16%20at%209.59.55%20pm.png)
 
 Highscores localStorage card:
 ![](Assets/Screen%20Shot%202020-06-16%20at%209.49.38%20pm.png)
 
+Problems and issues
+I struggled to get all the different cards interacting with each other right way. There are a lot of setAttribute and removeAttribute funcitons in the code. 
+I also would have liked to improve the design with CSS 
+I would have preferred the localStorage items disapper from the card when the clear storage function is activated without needing to refresh the page. I played around with removing the <li> elements but couldn't get it to work.
 
