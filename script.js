@@ -50,18 +50,14 @@ var questions = [{
     },
 ]
 
-window.addEventListener('load', (event) => {
-    // gameResultContainer.setAttribute("hidden", true);
-    // resultsContainer.setAttribute("hidden", true);
-});
-
 startButton.addEventListener("click", startGame)
 function startGame() {
     let interval = setInterval(function () {
         totalSeconds = totalSeconds - 1;
         secondsElapsed = secondsElapsed + 1;
         renderTimerDisplay();
-        if (totalSeconds === 0) {
+        if (totalSeconds <= 0) {
+            secondsDisplay.textContent = 0;
             questionContainer.setAttribute("hidden", true);
             gameResultContainer.removeAttribute("hidden");
             clearInterval(interval);
@@ -100,15 +96,15 @@ function renderQuestion(questionIndex) {
                     totalSeconds = totalSeconds - 10;
                     console.log("wrong")
                 }
+                if (question === questions[4]) {
+                    
+                    finishedBtn.removeAttribute("hidden");
+                    nextQuestion.setAttribute("hidden", true);
+                    
+                }
             clearAnswer();
         })
 
-        if (currentQuestion === 4) {
-            
-                finishedBtn.setAttribute("hidden", false);
-                nextQuestion.setAttribute("hidden", true);
-        
-        }
     }
 }
 
@@ -117,6 +113,11 @@ nextQuestion.addEventListener("click", function () {
     renderQuestion(currentQuestion);
     resultDisplay.textContent = "";
     nextQuestion.setAttribute("hidden", true);
+})
+
+finishedBtn.addEventListener("click", function(){
+    gameResultContainer.removeAttribute("hidden");
+    questionContainer.setAttribute("hidden", true);
 })
 
 function clearAnswer() {
@@ -134,7 +135,6 @@ highScoreBtn.addEventListener("click", function() {
 startAgainBtn.addEventListener("click", function(){
     questionContainer.setAttribute("hidden", true);
     gameResultContainer.setAttribute("hidden", true);
-    resultsContainer.removeAttribute("hidden");
 })
 
 var highScores = [{
@@ -155,13 +155,16 @@ addScoreBtn.addEventListener("click", function (event) {
     addScoreHistory();
 })
 
+localStorage.setItem("highScores", JSON.stringify(highScores));
+
 function addScoreHistory() {
     console.log("this is hard")
-    localStorage.setItem("highScores", JSON.stringify(highScores));
+    
 
-    let newScoreStorage = JSON.parse(localStorage.getItem("highScores"));
-    console.log(name + ": " + score)
-    let newline = document.createElement("li");
-    newline.textContent = newScoreStorage.name + ": " + newScoreStorage.score;
+    let addNewScore = JSON.parse(localStorage.getItem("highScores"));
+    console.log(name + ": " + addNewScore.score)
+
+    newline.document.createElement("li");
+    newline.textContent = addNewScore.name + ": " + score;
     scoreHistory.append(newline);
 }
